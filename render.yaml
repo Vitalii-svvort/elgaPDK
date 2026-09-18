@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: elgauqol-protocols
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile

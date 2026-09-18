@@ -1,4 +1,4 @@
-# MeetingProtocols — сайт протоколов собраний Эльгауголь
+# MeetingProtocols — сайт ПДК
 
 ## Деплой на Render.com
 

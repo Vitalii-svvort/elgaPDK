@@ -1,0 +1,12 @@
+@page
+@model MeetingProtocols.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<div class="container mt-5">
+    <h1>Привет, @Model.DisplayName!</h1>
+    <p>Это твой личный кабинет участника.</p>
+    
+    <a asp-page="/Identity/Account/Logout" class="btn btn-danger">Выйти</a>
+</div>

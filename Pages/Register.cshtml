@@ -1,0 +1,27 @@
+@page
+@model MeetingProtocols.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="container mt-5">
+    <h2>Регистрация</h2>
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="alert @(Model.Message.StartsWith("Ошибка") ? "alert-danger" : "alert-success")">
+            @Model.Message
+        </div>
+    }
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Email (будет логином)</label>
+            <input type="email" class="form-control" asp-for="Email" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Пароль (минимум 6 символов)</label>
+            <input type="password" class="form-control" asp-for="Password" minlength="6" required />
+        </div>
+        <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+    </form>
+    <p class="mt-3">Есть аккаунт? <a asp-page="/Login">Войти</a></p>
+</div>

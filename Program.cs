@@ -4,12 +4,19 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Подключаем Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+// Подключаем Identity с готовыми страницами входа/регистрации
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+    {
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+    })
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddDefaultUI(); // <--- вот это включает страницы /Identity/Account/...
 
-// Подключаем SQLite: база будет в файле app.db в корне приложения
+// Подключаем SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=app.db"));
 
@@ -28,12 +35,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Включает проверку логина/пароля
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
 
-// При первом запуске создадим таблицы в базе (для SQLite)
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

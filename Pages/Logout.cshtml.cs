@@ -8,9 +8,10 @@ namespace MeetingProtocols.Pages
     [Authorize]
     public class LogoutModel : PageModel
     {
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            SignOutAsync();
+            // Правильный способ выхода в Razor Pages
+            await HttpContext.SignOutAsync();
             return RedirectToPage("/Login");
         }
     }
